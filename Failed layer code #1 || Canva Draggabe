@@ -283,7 +283,7 @@
                 ve[dt] = ve[dt - 1] + 32
             }
             for (l = 0; l < hor.length; l++) {
-                lyritemName = "<div style=\"transform: translate3d(0," + ve[l] + "px,0);width: 200px;\" id=\"" + l + "\" draggable=\"true\"><span style=\"font-family: 'Poppins'; color:white;\">" + allItems[l] + "</span></div>"
+                lyritemName = "<div style=\"transform: translate3d(0px, " + ve[l] + "px, 0px);width: 200px;\" id=\"" + l + "\" draggable=\"true\"><span style=\"font-family: 'Poppins'; color:white;\">" + allItems[l] + "</span></div>"
                 itemArr[l] = lyritemName;
                 document.getElementById("lyrItems").innerHTML += itemArr[l]
                 console.log(lyritemName)
@@ -334,20 +334,39 @@
         var temp00 = new Array();
         var sort = [];
         var temp222 = new Array()
-                    var temp333 = new Array()
-                    for (let r = 0; r < ve.length; r++) {
-                        temp222[r] = ve[r]
-                        temp333[r] = ve[r]
+        var temp333 = new Array()
+        for (let r = 0; r < ve.length; r++) {
+            temp222[r] = ve[r]
+            temp333[r] = ve[r]
+        }
+        var line;
+            var lyrPos
+        for (let h = 0; h < ve.length; h++) {
+            console.table(arr)
+            arr[h] = [];
+            for (var o = 0; o < ve.length; o++) {
+                for (let i = 0; i < ve.length; i++) {
+
+                    if (temp333[o] == ve[i]) {
+                        sort[o] = i;
+                        break;
                     }
+                }
 
+            }
+            arr[h].push(sort[h])
 
+            arr[h].push(ve[h])
+            console.table(arr)
+            // console.log(temp00)
+        }
 
 
         document.addEventListener('DOMContentLoaded', (event) => {
             var temp;
             console.log("haeiasdk")
             function dragStart(e) {
-                this.style.opacity = '0.4';
+                // this.style.opacity = '0.4';
 
                 dragTranfer = this;
                 for (var g = 0; g < itemArr.length; g++) {
@@ -365,36 +384,48 @@
                 e.dataTransfer.effectAllowed = 'move';
                 e.dataTransfer.setData('text/html', this.innerHTML);
 
-                for (let h = 0; h < ve.length; h++) {
-                    console.table(arr)
-                                        arr[h] = [];
-                                        for (var o = 0; o < ve.length; o++) {
-                                            for (let i = 0; i < ve.length; i++) {
 
-                                                if (temp333[o] == ve[i]) {
-                                                    sort[o] = i;
-                                                    break;
-                                                }
-                                            }
 
-                                        }
-                                        arr[h].push(sort[h])
-
-                                        arr[h].push(ve[h])
-                                        console.table(arr)
-                                        // console.log(temp00)
-                                    }
-
-                                    for (let h = 0; h < arr.length; h++) {
-                                        temp00[h] = [];
-                                        temp00[h].push(arr[h][0])
-                                        temp00[h].push(arr[h][1])
-                                        // console.table(temp00)
-                                    }
+                for (let h = 0; h < sort.length; h++) {
+                    temp00[h] = sort[h]
+                    // console.table(temp00)
+                }
             }
-
+            var thisTemp;
+            var po=1;
+ 
             function handleDragOver(e) {
-                if (e.preventDefault) {
+                if (e.preventDefault) { 
+                    for(let y=0; y<ve.length;y++) {
+                    var getAtt = this.getAttribute("style")
+                    var inc = "translate3d(0px, " +ve[y]+ "px, 0px)"
+                    if(getAtt.includes(inc) && thisTemp != this) {
+
+                        const theDiv = document.createElement('div')
+                    const node = document.createAttribute('style')
+                    const ndId = document.createAttribute('id')
+                    node.value = "width:140px;height:3.5px;background:black;float:right;transform: translate3d(60px," +(ve[y]+25) + "px,0)";
+                    ndId.value = "G10PO--8";
+                    theDiv.setAttributeNode(node)
+                    theDiv.setAttributeNode(ndId)
+                    lyrPos = document.getElementById('lyrItems');
+                   line = document.getElementById("G10PO--8"); 
+                   lyrPos.appendChild(theDiv)
+                    
+
+                    console.log(line,lyrPos)
+                        if(this != thisTemp) {
+                            console.log(po)
+                            lyrPos.removeChild(line)
+
+                        }
+                        thisTemp = this
+
+                    }
+                }
+                    
+                    // document.getElementById('lyrItems').innerHTML += "<div style=\"width:140px;height:3.5px;background:black;float:right;transform: translate3d(60px,57px,0)\"></div>"
+
                     e.preventDefault();
                 }
                 return false;
@@ -424,84 +455,111 @@
                                     var ee = e + 1;
                                     let temp33 = ve[e]
                                     let temp34 = ve[d]
-                                    console.log(e,d)
+                                    console.log(e, d)
 
+                                    var k = 0
+                    var h = new Array()
+                    var v = new Array()
+                    var lb = new Array()
+                    var t = new Array()
+                    var w = new Array()
+                    for (let i = 0; i < hor.length; i++) {
+                        for (let uu = 0; uu < sort.length; uu++) {
 
+                            if (sort[uu] == i) {
+                                h[i] = hor[uu]
+                                v[i] = ver[uu]
+                                lb[i] = lebar[uu]
+                                t[i] = tinggi[uu]
+                                w[i] = warna[uu]
+
+                                break;
+                            }
+                            console.log(h)
+
+                        }
+                    }
 
 
                                     console.log(dd, e)
-                                    while (dd <= e) {
-                                        ve[dd] = temp222[dd - 1]
-                                        console.log("ve[" + (dd) + "] = ve[" + (dd - 1) + "]", ve, d, temp222)
-                                        dd++
-                                    }
-                                  
+
                                     console.log(ee)
 
-                                    for (let a = 0; a < arr.length; a++) {
-                                        console.log(arr[a][0],ee,d)
-                                        if (arr[a][0] == ee) {
-                                            console.log("Asdasdasfdsfasds")
-                                            for (let z = 0; z < arr.length; z++) {
-                                                if (ee <= d) {
+                                    while (ee <= d) {
+                                        sort[ee] = temp00[ee - 1]
+                                        console.table(sort)
+                                        ee++
+                                    }
+                                    console.log(e, d)
+                                    if (e <= d) {
+                                        sort[e] = temp00[d]
+                                        console.table(sort)
+                                    }
+                                    var ee = e + 1;
+                                    console.table(sort)
 
-                                                    arr[ee - 1][1] = temp00[ee][1]
-                                                    console.log(`arr[${(ee-1)}][1]/${arr[ee-1][1]} = temp00[${ee}][1]/${temp00[ee][1]}`)
-                                                    console.table(temp00)
-                                                    ee++
-                                                }
+                                    console.log(dd, ee)
+                                    console.log(d)
+                                    while (dd <= e) {
+                                        console.log(sort[dd], '=', temp00[dd - 1])
+
+                                        sort[dd - 1] = temp00[dd]
+                                        console.table(sort)
+                                        dd++
+
+                                    }
+
+                                    if (d <= e) {
+                                        sort[e] = temp00[d]
+                                        console.log(sort[d], '=', temp00[e])
+                                        console.table(sort)
+                                    }
+
+
+                                    for (let y = 0; y < arr.length; y++) {
+                                        arr[y][0] = sort[y]
+                                    }
+
+                                    for (let u = 0; u < arr.length; u++) {
+                                        for (let ii = 0; ii < arr.length; ii++) {
+                                            if (arr[ii][0] == u) {
+                                                ve[u] = arr[ii][1];
+                                                break;
                                             }
-                                        } else if (ee >= d) {
-                                            console.log("nothing")
-                                            arr[d][1] = temp00[e][1]
-                                            break;
                                         }
                                     }
-                                    for (let g = 0; g < ve.length; g++) {
-                                        ve[g] = arr[g][1]
-                                        console.table(arr)
-                                        // console.log(ve)
-                                        for (let x = 0; x < ve.length; x++) {
-                                                        // console.log(o)
-                                                        for (let i = 0; i < ve.length; i++) {
+                                    // for (let g = 0; g < ve.length; g++) {
+                                    //     ve[g] = arr[g][1]
+                                    //     console.table(arr)
+                                    //     // console.log(ve)
+                                    //     for (let x = 0; x < ve.length; x++) {
+                                    //                     // console.log(o)
+                                    //                     for (let i = 0; i < ve.length; i++) {
 
-                                                            if (temp333[x] == ve[i]) {
-                                                                sort[x] = i;
+                                    //                         if (temp333[x] == ve[i]) {
+                                    //                             sort[x] = i;
 
-                                                                break;
-                                                            }
-                                                        }
+                                    //                             break;
+                                    //                         }
+                                    //                     }
 
-                                                        // console.log(sort, "ASODASDNASJ")
+                                    //                     // console.log(sort, "ASODASDNASJ")
 
-                                                    }
-                                                    // console.table(sort)k
+                                    //                 }
+                                    //                 // console.table(sort)k
 
-                                    }
-                                    console.table(arr)
-                                    for (let t=0;t<arr.length;t++) {
+                                    // }
+                                    for (let t = 0; t < arr.length; t++) {
                                         arr[t][0] = sort[t]
                                         // console.table(arr)
 
                                     }
-
-
-
-
-                                    // console.log("ve["+e+"]= ve[", d, "]", ve)
-
-                                    if (d <= e) {
-                                        ve[d] = temp33
-                                    }
-
-                                    if (e < d) {
-                                        console.log(temp33, ve[d], e, d)
-
-                                        ve[d] = temp33
-                                    }
+                                    console.table(arr)
+                                    console.table(ve)
+                                    console.table(sort)
 
                                     for (let s = 0; s < ve.length; s++) {
-                                        document.getElementById(s).style.transform = "translate3d(0," + ve[s] + "px,0)"
+                                        document.getElementById(s).style.transform = "translate3d(0px, " + ve[s] + "px, 0px)"
 
                                     }
                                     console.log('break')
@@ -509,48 +567,54 @@
                                     e = arr.length
                                     break;
                                 }
-                                
+
 
                                 // console.log("gone")
 
                             }
                         }
-                        
+
                     }
                     // this.innerHTML = e.dataTransfer.getData('text/html');
-                    var k = 0
-                    var h = new Array()
-                    var v = new Array()
-                    var lb = new Array()
-                    var t = new Array()
-                    var w = new Array()
-                    for (let i = 0; i < hor.length; i++) {
-                        h[i] = hor[i]
-                        v[i] = ver[i]
-                        lb[i] = lebar[i]
-                        t[i] = tinggi[i]
-                        w[i] = warna[i]
+                   
+
+                    for (let ll = 0; ll < hor.length; ll++) {
+                        var hh;
+                        var t1, t2;
+                        for (hh = 0; hh < sort.length; hh++) {
+
+                            if (sort[hh] == ll) {
+                                t1 = hh;
+
+                                break
+                            }
+                        }
+                        hor[hh] = h[ll]
+                        ver[hh] = v[ll]
+                        lebar[hh] = lb[ll]
+                        tinggi[hh] = t[ll]
+                        warna[hh] = w[ll]
+                        console.log(hor)
                     }
 
+                    // let temp = []
 
-                    let temp = []
+                    // hor[a] = hor[l]
+                    // ver[a] = ver[l]
+                    // lebar[a] = lebar[l]
+                    // tinggi[a] = tinggi[l]
+                    // warna[a] = warna[l]
 
-                    hor[a] = hor[l]
-                    ver[a] = ver[l]
-                    lebar[a] = lebar[l]
-                    tinggi[a] = tinggi[l]
-                    warna[a] = warna[l]
-
-                    let c = l + 1;
-                    while (c <= a) {
-                        hor[c - 1] = h[c]// ex (Square 2 = Square 1)
-                        // console.log("3eq",(c-1) , c, hor)
-                        ver[c - 1] = v[c]
-                        lebar[c - 1] = lb[c]
-                        tinggi[c - 1] = t[c]
-                        warna[c - 1] = w[c]
-                        c++
-                    }
+                    // let c = l + 1;
+                    // while (c <= a) {
+                    //     hor[c - 1] = h[c]// ex (Square 2 = Square 1)
+                    //     // console.log("3eq",(c-1) , c, hor)
+                    //     ver[c - 1] = v[c]
+                    //     lebar[c - 1] = lb[c]
+                    //     tinggi[c - 1] = t[c]
+                    //     warna[c - 1] = w[c]
+                    //     c++
+                    // }
 
 
 
@@ -561,7 +625,8 @@
                         shape.fillStyle = warna[g]
                         shape.fillRect(hor[g], ver[g], lebar[g], tinggi[g])
                     }
-
+                    console.log(lyrPos,line)
+                    lyrPos.removeChild(document.getElementById('G10PO--8'))
 
                 }
 
@@ -570,11 +635,11 @@
 
             }
             function dragEnd(e) {
-                this.style.opacity = '1';
 
                 items.forEach(function (item) {
                     item.classList.remove('over');
                 });
+
             }
 
             let items = document.querySelectorAll(' .lyrItems div');
